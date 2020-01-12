@@ -7,26 +7,25 @@ int main()
 {
 	UmlClassDiagramTool *tool = new UmlClassDiagramTool();
 	MceditBackend* backend = new MceditBackend(tool);
-	backend->bind(".plik.do odczytu${Podaj nazwe pliku do odczytu:|fileName}", [&tool]() {tool->inputMode(); }, "opis");
-	backend->bind(".plik.do zapisu${Podaj nazwe pliku do zapisu:|fileName}", [&tool]() {tool->outputMode(); }, "opis");
-	backend->bind(".trybEdycji.klasy${Podaj nazwe edytowanej klasy:|editedClassName}", [&tool]() {}, "opis");
-	backend->bind(".trybEdycji.pola${Podaj nazwe edytowanej klasy:|editedClassName}", [&tool]() {}, "opis");
-	backend->bind(".trybEdycji.dziedzczenie${Podaj nazwe edytowanej klasy:|editedClassName}", [&tool]() {}, "opis");
-	backend->bind(".klasa.dodaj klase${Nazwa: |className}", [&tool]() {tool->addClass(); }, "");
-	backend->bind(".klasa.edytuj klase${Nazwa: |className}", [&tool]() {tool->editClass(); }, "");
-	backend->bind(".klasa.usun klase${Nazwa: |className}", [&tool]() {tool->deleteClass(); }, "");
-	backend->bind(".pole.dodaj pole${Nazwa: |fieldName}", [&tool]() {tool->addField(); }, "opis");
-	//backend->bind(".pole.edytuj nazwe pola${Nazwa: |fieldName}", [&tool]() {tool->deleteField(); }, "opis");
-	backend->bind(".pole.usun pole${Nazwa: |fieldName}", [&tool]() {tool->deleteField();}, "opis");
-	backend->bind(".dziedziczenie.dodaj dziedziczenie${Nazwa: |inheritedFrom}", [&tool]() {tool->addInheritance(); }, "opis");
-	backend->bind(".dziedziczenie.usun dziedziczenie${Nazwa: |inheritedFrom}", [&tool]() {tool->deleteInheritance();  }, "opis");
-	backend->bind("<EDITION>", [&tool]() {mvprintw(1, 0, "%s", tool->getEntry("KEY").c_str()); refresh();  }, "");
+	backend->bind(".File.To read${File name:|fileName}", [&tool]() {tool->inputMode(); }, "Open file");
+	backend->bind(".File.To write${File name:|fileName}", [&tool]() {tool->outputMode(); }, "Save file");
+	backend->bind(".EditionMode.classes", [&tool]() {tool->printClasses(); tool->editionHandler = std::bind(&UmlClassDiagramTool::chooseClass, tool); }, "Choose class to edition");
+	backend->bind(".EditionMode.fields", [&tool]() { tool->printFields(); tool->editionHandler = std::bind(&UmlClassDiagramTool::chooseField, tool); }, "Choose field to edition");
+	backend->bind(".EditionMode.inheritance", [&tool]() { tool->printInheritance(); tool->editionHandler = std::bind(&UmlClassDiagramTool::chooseInheritance, tool); }, "Choose inheritance to edition");
+	backend->bind(".Class.add class${Class name: |className}", [&tool]() {tool->addClass(); }, "Add class");
+	backend->bind(".Class.edit class${New name: |className}", [&tool]() {tool->editClass(); }, "Edit class name");
+	backend->bind(".Class.delete class", [&tool]() {tool->deleteClass(); }, "Delete class");
+	backend->bind(".Field.add field${Field name: |fieldName}", [&tool]() {tool->addField(); }, "Add field");
+	backend->bind(".Field.edit field${New name: |fieldName}", [&tool]() {tool->editField(); }, "Edit field name");
+	backend->bind(".Field.delete field", [&tool]() {tool->deleteField();}, "Delete field");
+	backend->bind(".Inheritance.add inheritance${Base class name: |inheritedFrom}", [&tool]() {tool->addInheritance(); }, "Add inheritance");
+	backend->bind(".Inheritance.delete inheritance", [&tool]() {tool->deleteInheritance();  }, "Delete i nheritance");
+	backend->bind("<EDITION>", [&tool]() {if (tool->editionHandler) tool->editionHandler(); }, "");
 	backend->start();
 	delete backend;
 }
 
-//edit name etc??
-//draw inher plik3.xml
+//draw diagram + print + wclear
 //gdy sie nie miesci
-//ostatni podpkt
-//zamiast wclear 
+//resize
+//"if the path is empty diagram should be written into the previously specified path"

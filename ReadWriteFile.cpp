@@ -41,8 +41,10 @@ std::vector<UmlClass*> ReadWriteFile::readFromFile(const std::string &fileName)
 			}
 		}
 	}
-	//else
-	
+	else {
+		throw FileNotFound();
+	}
+
 	return vecClasses;
 }
 

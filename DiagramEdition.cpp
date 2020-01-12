@@ -8,12 +8,11 @@ void DiagramEdition::addClass()
 void DiagramEdition::editClass()
 {
 	std::string newClassName = tool->getEntry("className");
-	std::string oldClassName = tool->getEntry("editedClassName");
+	std::string chosenClass = tool->getEntry("chosenClass");
+	
 	auto it = vecClasses.begin();
-	for (; it != vecClasses.end() && (*it)->name != oldClassName; ++it);
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
 	if (it == vecClasses.end()) {
-		//nie znaleziono
-		//throw
 		return;
 	}
 	else {
@@ -23,12 +22,11 @@ void DiagramEdition::editClass()
 
 void DiagramEdition::deleteClass()
 {
-	std::string className = tool->getEntry("className"); 
+	std::string chosenClass=tool->getEntry("chosenClass");
+
 	auto it = vecClasses.begin();
-	for (; it != vecClasses.end() && (*it)->name != className; ++it);
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
 	if (it == vecClasses.end()) {
-		//nie znaleziono
-		//throw
 		return;
 	}
 	else {
@@ -39,12 +37,11 @@ void DiagramEdition::deleteClass()
 
 void DiagramEdition::addField()
 {
-	std::string editedClassName = tool->getEntry("editedClassName");
+	std::string chosenClass = tool->getEntry("chosenClass");
+
 	auto it = vecClasses.begin();
-	for (; it != vecClasses.end() && (*it)->name != editedClassName; ++it);
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
 	if (it == vecClasses.end()) {
-		//nie znaleziono
-		//throw
 		return;
 	}
 	else {
@@ -53,26 +50,43 @@ void DiagramEdition::addField()
 }
 
 void DiagramEdition::editField()
-{
+{;
+	std::string newFieldName = tool->getEntry("fieldName");
+	std::string oldFieldName = tool->getEntry("chosenField");
+
+	std::string chosenClass = tool->getEntry("chosenClass");
+	
+	auto it = vecClasses.begin();
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
+	if (it == vecClasses.end()) {
+		return;
+	}
+	else {
+		auto it2 = (*it)->fields.begin();
+		for (; it2 != (*it)->fields.end() && it2->name != oldFieldName; ++it2);
+		if (it2 == (*it)->fields.end()) {
+			return;
+		}
+		else {
+			it2->name = newFieldName;
+		}
+	}
 }
 
 void DiagramEdition::deleteField()
 {
-	std::string editedClassName = tool->getEntry("editedClassName");
-	std::string fieldName = tool->getEntry("fieldName");
+	std::string fieldName = tool->getEntry("chosenField");
+	std::string chosenClass = tool->getEntry("chosenClass");
+
 	auto it = vecClasses.begin();
-	for (; it != vecClasses.end() && (*it)->name != editedClassName; ++it);
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
 	if (it == vecClasses.end()) {
-		//nie znaleziono
-		//throw
 		return;
 	}
 	else {
 		auto it2 = (*it)->fields.begin();
 		for (; it2 != (*it)->fields.end() && it2->name != fieldName; ++it2);
 		if (it2 == (*it)->fields.end()) {
-			//nie znaleziono
-			//throw
 			return;
 		}
 		else {
@@ -83,12 +97,11 @@ void DiagramEdition::deleteField()
 
 void DiagramEdition::addInheritance()
 {
-	std::string editedClassName = tool->getEntry("editedClassName");
+	std::string chosenClass = tool->getEntry("chosenClass");
+
 	auto it = vecClasses.begin();
-	for (; it != vecClasses.end() && (*it)->name != editedClassName; ++it);
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
 	if (it == vecClasses.end()) {
-		//nie znaleziono
-		//throw
 		return;
 	}
 	else {
@@ -96,23 +109,19 @@ void DiagramEdition::addInheritance()
 	}
 }
 
-void DiagramEdition::editInheritance()
-{
-}
-
 void DiagramEdition::deleteInheritance()
 {
-	std::string editedClassName = tool->getEntry("editedClassName");
-	std::string inheritedFrom = tool->getEntry("inheritedFrom");
+	std::string inheritedFrom = tool->getEntry("chosenInheritance");
+	std::string chosenClass = tool->getEntry("chosenClass");
+
 	auto it = vecClasses.begin();
-	for (; it != vecClasses.end() && (*it)->name != editedClassName; ++it);
+	for (; it != vecClasses.end() && (*it)->name != chosenClass; ++it);
 	if (it == vecClasses.end()) {
-		//nie znaleziono
-		//throw
 		return;
 	}
 	else {
-		for (int i = 0; i < (*it)->inheritedFrom.size() && (*it)->inheritedFrom[i] == inheritedFrom; i++)
+		for (size_t i = 0; i < (*it)->inheritedFrom.size() && (*it)->inheritedFrom[i] == inheritedFrom; i++)
 			(*it)->inheritedFrom.erase((*it)->inheritedFrom.begin()+i);
 	}
 }
+
