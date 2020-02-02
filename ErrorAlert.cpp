@@ -1,18 +1,12 @@
 #include "ErrorAlert.h"
 #include <curses.h>
 
-void ErrorAlert::alertMsg()
+WINDOW* ErrorAlert::alertMsg(WINDOW* window, std::string msg)
 {
-	WINDOW* errorWin = newwin(2, 50, 10, COLS / 3);
-	wprintw(errorWin, "First you have to choose item to edition\n \t(go to -> EditionMode)");
+	WINDOW* errorWin = derwin(window,2, 50, 10, COLS / 3);
+	wprintw(errorWin, msg.c_str());
 	wrefresh(errorWin);
-	delwin(errorWin);
-}
-
-void ErrorAlert::fileAlert()
-{
-	WINDOW* errorWin = newwin(2, 40, 10, COLS / 3);
-	wprintw(errorWin, "Wrong file name, try one more time");
-	wrefresh(errorWin);
-	delwin(errorWin);
+	//werase(errorWin);
+	//delwin(errorWin);
+	return errorWin;
 }

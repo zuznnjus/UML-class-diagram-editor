@@ -12,8 +12,10 @@ class UmlClassDiagramTool: public BaseTool
 {
 	std::unordered_map<std::string, std::string> entries;
 	WINDOW* window;
-	//WINDOW* listWindow;
-	
+	WINDOW* listWindow;
+	WINDOW* diagramWindow;
+	WINDOW* errorWindow;
+
 	void assignWindow(WINDOW*) override;
 
 	DiagramEdition edition;
@@ -25,10 +27,13 @@ class UmlClassDiagramTool: public BaseTool
 	void setCounter(std::string, int);
 	void setIndex(int);
 
+	std::string lastFileName; 
+
 	int calculateHeight(int);
 	int calculateWidth(int);
-	void drawInheritanceLine(int**,unsigned int, unsigned int, int, int&, int);
+	void drawInheritanceLine(int**, size_t, size_t, int, int&, int);
 	void drawDiagram();
+
 
 public:
 	UmlClassDiagramTool();
@@ -38,6 +43,7 @@ public:
 	void setEntry(const std::string&, const std::string&) override;
 
 	std::function<void()> editionHandler;
+	void defaultEditionHandler();
 
 	void inputMode();
 	void outputMode();

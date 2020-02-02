@@ -2,7 +2,11 @@
 
 void DiagramEdition::addClass()
 {
-	vecClasses.push_back(new UmlClass(tool->getEntry("className")));
+	std::string className = tool->getEntry("className");
+	if (className == "") {
+		throw EmptyItemName();
+	}
+	vecClasses.push_back(new UmlClass(className));
 }
 
 void DiagramEdition::editClass()

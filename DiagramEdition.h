@@ -23,4 +23,6 @@ class DiagramEdition
 public:
 	DiagramEdition(BaseTool *const tool) : tool(tool) {}
 	std::vector<UmlClass*>& getVec()  { return vecClasses; }
+
+	class EmptyItemName{};
 };

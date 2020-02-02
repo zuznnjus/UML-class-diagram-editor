@@ -1,8 +1,10 @@
 #pragma once
+#include <curses.h>
+#include <string>
+
 class ErrorAlert
 {
 public:
-	void alertMsg();
-	void fileAlert();
+	WINDOW* alertMsg(WINDOW*, std::string);
 };
 

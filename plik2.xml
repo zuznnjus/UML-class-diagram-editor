@@ -1,0 +1,31 @@
+<UmlDiagram>
+    	<UmlClass>
+		<name>nazwa1</name>
+		<fields> 
+			<UmlField>poleeeeeeeeeeeeeeeee1</UmlField>
+			<UmlField>pole2</UmlField>
+			<UmlField>pole3</UmlField>
+			<UmlField>pole4</UmlField>
+		</fields> 
+	</UmlClass>
+	<UmlClass>
+		<name>nazwa2</name>
+		<fields> 
+			<UmlField>pole5</UmlField>
+		</fields> 
+		<inheritedFrom> 
+			<name>nazwa1</name>
+		</inheritedFrom>
+	</UmlClass>
+	<UmlClass>
+		<name>nazwa3</name>
+		<fields> 
+			<UmlField>pole6</UmlField>
+			<UmlField>pole7</UmlField>
+			<UmlField>pole8</UmlField>
+		</fields> 
+		<inheritedFrom> 
+			<name>nazwa1</name>
+		</inheritedFrom>
+	</UmlClass>
+</UmlDiagram>
